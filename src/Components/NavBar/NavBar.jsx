@@ -1,6 +1,7 @@
 import { NavLink } from "react-router-dom";
 import logo from "../../assets/logo.svg";
 import "./navbar.css";
+import SocialLogin from "../SocialLogin/SocialLogin";
 
 const textStyles = {
   fontFamily: "Kaushan Script",
@@ -12,7 +13,7 @@ const textStyles = {
 
 const NavBar = () => {
   return (
-    <div className="mx-auto text-white bg-[#6c2342] max-w-screen-2xl px-5 lg:px-10">
+    <div className="mx-auto  bg-[#6c2342] max-w-screen-2xl px-5 lg:px-10">
       <div className="navbar fill-transparent">
         <div className="navbar-start">
           <div className="dropdown">
@@ -54,7 +55,9 @@ const NavBar = () => {
                     ClicoVerse
                   </span>
                 </h2>
-                <p className="text-md font-medium">PhotoShoot Event</p>
+                <p className="text-md font-medium text-white">
+                  PhotoShoot Event
+                </p>
               </NavLink>
             </div>
           </div>
@@ -83,6 +86,7 @@ const NavBar = () => {
         <div className="modal-box">
           <div className="card flex-shrink-0 w-full shadow-2xl bg-base-100">
             <form className="card-body">
+              <h2 className="text-center font-bold text-2xl">Please Login</h2>
               <div className="form-control">
                 <label className="label">
                   <span className="label-text font-semibold">Email</span>
@@ -125,6 +129,9 @@ const NavBar = () => {
               >
                 <p>Create an Account</p>
               </NavLink>
+            </div>
+            <div className="text-center pt-5 border-t-2 border-[#ae1ec7]">
+              <SocialLogin></SocialLogin>
             </div>
             <form method="dialog">
               {/* if there is a button in form, it will close the modal */}
