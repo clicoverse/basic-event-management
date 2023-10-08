@@ -1,7 +1,8 @@
 import { NavLink } from "react-router-dom";
 import logo from "../../assets/logo.svg";
 import "./navbar.css";
-import SocialLogin from "../SocialLogin/SocialLogin";
+import { useContext } from "react";
+import { AuthContext } from "../../Provider/AuthProvider";
 
 const textStyles = {
   fontFamily: "Kaushan Script",
@@ -9,15 +10,79 @@ const textStyles = {
   fontWeight: "bold",
 };
 
-<NavLink to={"/"}>Home</NavLink>;
-
 const NavBar = () => {
+  const { user, logOut } = useContext(AuthContext);
+
+  const links = (
+    <>
+      <NavLink
+        to={"/"}
+        className={({ isActive, isPending }) =>
+          isPending
+            ? "pending"
+            : isActive
+            ? "font-semibold border-b-2 border-[#ae1ec7] text-lg"
+            : ""
+        }
+      >
+        Home
+      </NavLink>
+      <NavLink
+        to={"/Services"}
+        className={({ isActive, isPending }) =>
+          isPending
+            ? "pending"
+            : isActive
+            ? "font-semibold border-b-2 border-[#ae1ec7] text-lg"
+            : ""
+        }
+      >
+        Services
+      </NavLink>
+      <NavLink
+        to={"/about"}
+        className={({ isActive, isPending }) =>
+          isPending
+            ? "pending"
+            : isActive
+            ? "font-semibold border-b-2 border-[#ae1ec7] text-lg"
+            : ""
+        }
+      >
+        About Us
+      </NavLink>
+      <NavLink
+        to={"/contact"}
+        className={({ isActive, isPending }) =>
+          isPending
+            ? "pending"
+            : isActive
+            ? "font-semibold border-b-2 border-[#ae1ec7] text-lg"
+            : ""
+        }
+      >
+        Contact Us
+      </NavLink>
+    </>
+  );
+
+  const handleLogOut = () => {
+    logOut()
+      .then(() => {
+        // Sign-out successful.
+      })
+      .catch((error) => {
+        // An error happened.
+        console.log(error);
+      });
+  };
+
   return (
     <div className="mx-auto  bg-[#6c2342] max-w-screen-2xl px-5 lg:px-10">
       <div className="navbar fill-transparent">
         <div className="navbar-start">
           <div className="dropdown">
-            <label tabIndex={0} className="btn btn-ghost lg:hidden">
+            <label tabIndex={0} className="btn btn-neutral lg:hidden">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-5 w-5"
@@ -35,15 +100,9 @@ const NavBar = () => {
             </label>
             <ul
               tabIndex={0}
-              className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-black rounded-box w-52"
+              className="menu menu-sm text-white font-semibold dropdown-content mt-3 z-[1] p-4 space-x-3 space-y-2 shadow bg-black rounded-box w-52"
             >
-              <li>
-                <a>Item 1</a>
-              </li>
-
-              <li>
-                <a>Item 3</a>
-              </li>
+              {links}
             </ul>
           </div>
           <div className="flex">
@@ -63,26 +122,123 @@ const NavBar = () => {
           </div>
         </div>
         <div className="navbar-center hidden lg:flex">
-          <ul className="menu menu-horizontal px-1">
-            <li>
-              <a>Item 1</a>
-            </li>
-            <li>
-              <a>Item 3</a>
-            </li>
+          <ul className="menu text-white text-base font-semibold space-x-5 menu-horizontal">
+            {links}
           </ul>
         </div>
-        <div className="navbar-end">
-          <a
-            onClick={() => document.getElementById("my_modal_1").showModal()}
-            className="border-none px-3 py-2 lg:px-5 lg:py-3 font-medium rounded-md bg-[#ff006a] text-white hover:bg-[#ae1ec7] cursor-pointer hover:animate-bounce"
-          >
-            BOOK A TICKET
-          </a>
+        <div className="navbar-end gap-5">
+          {user ? (
+            <div className="dropdown dropdown-end">
+              <label
+                tabIndex={0}
+                className="btn btn-ghost btn-circle avatar flex flex-wrap"
+              >
+                <div className="w-14 rounded-full">
+                  <img src={user?.photoURL} alt={user.displayName} />
+                </div>
+              </label>
+              <ul
+                tabIndex={0}
+                className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
+              >
+                <li>
+                  <a className="justify-between">
+                    Name:
+                    <span className="badge">{user?.displayName}</span>
+                  </a>
+                </li>
+                <li>
+                  <a>
+                    Email:
+                    <span>{user?.email}</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          ) : (
+            ""
+          )}
+          {user ? (
+            <button
+              onClick={() => handleLogOut()}
+              className="border-none px-3 py-2 lg:px-5 lg:py-3 font-medium rounded-md bg-[#ff006a] text-white hover:bg-[#ae1ec7] cursor-pointer hover:animate-bounce"
+            >
+              Sign Out
+            </button>
+          ) : (
+            <NavLink to={"/login"}>
+              <button className="border-none px-3 py-2 lg:px-5 lg:py-3 font-medium rounded-md bg-[#ff006a] text-white hover:bg-[#ae1ec7] cursor-pointer hover:animate-bounce">
+                BOOK A TICKET
+              </button>
+            </NavLink>
+          )}
         </div>
       </div>
       {/* Modal -1 (Login) */}
-      <dialog id="my_modal_1" className="modal">
+      {/* <dialog id="my_modal_1" className="modal">
+        <div className="modal-box">
+          <div className="card flex-shrink-0 w-full shadow-2xl bg-base-100">
+            <form onSubmit={handleSingIn} className="card-body">
+              <h2 className="text-center font-bold text-2xl">Please Login</h2>
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text font-semibold">Email</span>
+                </label>
+                <input
+                  name="email"
+                  placeholder="email"
+                  className="input input-bordered"
+                  type="email"
+                  required
+                />
+              </div>
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text font-semibold">Password</span>
+                </label>
+                <input
+                  name="password"
+                  placeholder="password"
+                  className="input input-bordered"
+                  type="password"
+                  required
+                />
+                <label className="label">
+                  <a href="#" className="label-text-alt link link-hover">
+                    Forgot password?
+                  </a>
+                </label>
+              </div>
+              <div className="form-control mt-6">
+                <button
+                  type="submit"
+                  className="border-none px-3 py-2 lg:px-5 lg:py-3 font-medium rounded-md bg-[#ff006a] text-white hover:bg-[#ae1ec7] cursor-pointer hover:animate-bounce"
+                >
+                  LOGIN
+                </button>
+              </div>
+            </form>
+            <div className="text-black flex justify-between items-center px-5 pb-10">
+              <p className="text-bold font-bold">New Here? </p>
+              <NavLink to={"/registration"}>
+                <p>Create an Account</p>
+              </NavLink>
+            </div>
+            <div className="text-center">
+              <SocialLogin handleGoogleLogin={handleGoogleLogin}></SocialLogin>
+            </div>
+            <form method="dialog">
+              <div className="text-end pr-5 pb-5">
+                <button className="border-none px-3 py-2 lg:px-5 lg:py-3 font-medium rounded-md bg-[#ff006a] text-white hover:bg-[#ae1ec7] cursor-pointer hover:animate-bounce">
+                  Close
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </dialog> */}
+      {/* Modal -2 (Register)
+      <dialog id="my_modal_2" className="modal">
         <div className="modal-box">
           <div className="card flex-shrink-0 w-full shadow-2xl bg-base-100">
             <form className="card-body">
@@ -92,7 +248,7 @@ const NavBar = () => {
                   <span className="label-text font-semibold">Email</span>
                 </label>
                 <input
-                  type="email"
+                  name="email"
                   placeholder="email"
                   className="input input-bordered"
                   required
@@ -103,7 +259,7 @@ const NavBar = () => {
                   <span className="label-text font-semibold">Password</span>
                 </label>
                 <input
-                  type="password"
+                  name="password"
                   placeholder="password"
                   className="input input-bordered"
                   required
@@ -116,25 +272,24 @@ const NavBar = () => {
               </div>
               <div className="form-control mt-6">
                 <button className="border-none px-3 py-2 lg:px-5 lg:py-3 font-medium rounded-md bg-[#ff006a] text-white hover:bg-[#ae1ec7] cursor-pointer hover:animate-bounce">
-                  LOGIN
+                  Sign Up
                 </button>
               </div>
             </form>
             <div className="text-black flex justify-between items-center px-5 pb-10">
-              <p className="text-bold font-bold">New Here? </p>
+              <p className="text-bold font-bold">All Ready have Account? </p>
               <NavLink
                 onClick={() =>
-                  document.getElementById("my_modal_2").showModal()
+                  document.getElementById("my_modal_1").showModal()
                 }
               >
-                <p>Create an Account</p>
+                <p>Log in Please</p>
               </NavLink>
             </div>
-            <div className="text-center pt-5 border-t-2 border-[#ae1ec7]">
-              <SocialLogin></SocialLogin>
+            <div className="text-center">
+              <SocialLogin handleGoogleLogin={handleGoogleLogin}></SocialLogin>
             </div>
             <form method="dialog">
-              {/* if there is a button in form, it will close the modal */}
               <div className="text-end pr-5 pb-5">
                 <button className="border-none px-3 py-2 lg:px-5 lg:py-3 font-medium rounded-md bg-[#ff006a] text-white hover:bg-[#ae1ec7] cursor-pointer hover:animate-bounce">
                   Close
@@ -143,7 +298,7 @@ const NavBar = () => {
             </form>
           </div>
         </div>
-      </dialog>
+      </dialog> */}
     </div>
   );
 };
