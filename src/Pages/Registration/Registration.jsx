@@ -1,12 +1,14 @@
 import { useContext } from "react";
 import SocialLogin from "../../Components/SocialLogin/SocialLogin";
 import { AuthContext } from "../../Provider/AuthProvider";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
+import ClientsFeedBack from "../../Components/ClientsFeedBack/ClientsFeedBack";
 
 const Registration = () => {
   const { createSignUp, handleUpdateProfile } = useContext(AuthContext);
   const navigation = useNavigate();
+  const location = useLocation();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -15,8 +17,14 @@ const Registration = () => {
     const image = e.target.image.value;
     const password = e.target.password.value;
 
-    if (password.length < 6) {
-      alert(" Password must be 6 character");
+    if (
+      !/(?=.*[a-z])(?=.*[A-Z])(?=.*[@$!%*?&])([a-zA-Z@$!%*?&]{6,})$/.test(
+        password
+      )
+    ) {
+      return toast.error(
+        "Password should be 6 Character Long with one Capital letter & One special character"
+      );
     }
 
     createSignUp(email, password)
@@ -25,7 +33,8 @@ const Registration = () => {
           //toast
           toast.success("You have successfully Registered");
           response.user;
-          navigation("/");
+          e.target.reset();
+          navigation(location?.state ? location.state : "/");
         });
       })
       .catch((error) => {
@@ -36,7 +45,7 @@ const Registration = () => {
   };
 
   return (
-    <div className="mx-auto py-10 bg-blue-300 max-w-screen-2xl px-5 lg:px-10">
+    <div className="mx-auto py-10 grid grid-cols-1 lg:grid-cols-2 max-w-screen-2xl px-5 lg:px-10">
       <div className="mx-auto">
         <div className="relative flex flex-col rounded-xl bg-transparent bg-clip-border text-gray-700 shadow-none">
           <h4 className="block font-sans text-2xl font-semibold leading-snug tracking-normal text-blue-gray-900 antialiased">
@@ -160,6 +169,9 @@ const Registration = () => {
           </form>
           <SocialLogin></SocialLogin>
         </div>
+      </div>
+      <div>
+        <ClientsFeedBack></ClientsFeedBack>
       </div>
     </div>
   );

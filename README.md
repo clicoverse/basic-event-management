@@ -1,8 +1,13 @@
-# React + Vite
+This is a Photoshoot Event Management based Website under the category of Corporate Events.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+The Main features inside this website is:
 
-Currently, two official plugins are available:
+#1. Website contains a Hero Section where recent events related to this categoy can be advertise with in the website. That can be video advertisement or banner advertisement.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+#2. The website have email-password login section as well as google login system. Without login clients are unable to pay the event ticket amount, unable to view package section and other credentials.
+
+#3. In home page, event related informations as well as upcomming events are categorically organized.
+
+#4. As in this website we use private route, the clients are unable to show or hire our models. After providing the clients information they can able to view and hire fashion models for there business purposes.
+
+#5. The website clearly describes about how they organise the events and also advertise upcoming events in home page.

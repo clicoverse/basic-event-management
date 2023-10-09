@@ -1,12 +1,13 @@
 import { useContext } from "react";
 import { FaGoogle, FaFacebook } from "react-icons/fa";
 import { AuthContext } from "../../Provider/AuthProvider";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 
 const SocialLogin = () => {
   const { googelLogin } = useContext(AuthContext);
   const navigation = useNavigate();
+  const location = useLocation();
 
   const handleGoogleLogin = () => {
     googelLogin()
@@ -14,7 +15,7 @@ const SocialLogin = () => {
         response.user;
         //toast
         toast.success("You have successfully Logged in");
-        navigation("/");
+        navigation(location?.state ? location.state : "/");
       })
       .catch((error) => {
         error.message;

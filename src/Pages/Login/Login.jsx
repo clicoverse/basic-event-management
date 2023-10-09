@@ -3,6 +3,7 @@ import SocialLogin from "../../Components/SocialLogin/SocialLogin";
 import { useContext } from "react";
 import { AuthContext } from "../../Provider/AuthProvider";
 import toast from "react-hot-toast";
+import ClientsFeedBack from "../../Components/ClientsFeedBack/ClientsFeedBack";
 
 const Login = () => {
   const { signInUser } = useContext(AuthContext);
@@ -18,7 +19,7 @@ const Login = () => {
         response.user;
         //toast
         toast.success("You have successfully Logged in");
-        navigation("/");
+        navigation(location?.state ? location.state : "/");
       })
       .catch((error) => {
         error.message;
@@ -28,8 +29,11 @@ const Login = () => {
   };
 
   return (
-    <div>
-      <div className="mx-auto w-1/2 py-10 bg-blue-300 max-w-screen-2xl px-5 lg:px-10">
+    <div className="mx-auto py-10 grid grid-cols-1 lg:grid-cols-2 max-w-screen-2xl px-5 lg:px-10">
+      <div>
+        <ClientsFeedBack></ClientsFeedBack>
+      </div>
+      <div className="">
         <div className="card flex-shrink-0 w-full shadow-2xl bg-base-100">
           <form onSubmit={handleSingIn} className="card-body">
             <h2 className="text-center font-bold text-2xl">Please Login</h2>

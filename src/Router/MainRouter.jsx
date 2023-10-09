@@ -9,6 +9,7 @@ import About from "../Pages/About/About";
 import Packages from "../Pages/Packages/Packages";
 import Service from "../Pages/Service/Service";
 import PrivateRouter from "../PrivateRouter/PrivateRouter";
+import Hire from "../Pages/Hire/Hire";
 
 const MainRouter = createBrowserRouter([
   {
@@ -22,7 +23,11 @@ const MainRouter = createBrowserRouter([
       },
       {
         path: "/packages",
-        element: <Packages></Packages>,
+        element: (
+          <PrivateRouter>
+            <Packages></Packages>
+          </PrivateRouter>
+        ),
       },
       {
         path: "/about",
@@ -48,6 +53,15 @@ const MainRouter = createBrowserRouter([
           </PrivateRouter>
         ),
         loader: () => fetch("../../services.json"),
+      },
+      {
+        path: "/hire",
+        element: (
+          <PrivateRouter>
+            <Hire></Hire>
+          </PrivateRouter>
+        ),
+        loader: () => fetch("../../hire.json"),
       },
     ],
   },
