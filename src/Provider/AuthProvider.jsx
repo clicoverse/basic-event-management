@@ -6,6 +6,7 @@ import {
   signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
+  updateProfile,
 } from "firebase/auth";
 import { auth } from "../Config/firebase.config";
 
@@ -15,19 +16,32 @@ const googleProvider = new GoogleAuthProvider();
 // eslint-disable-next-line react/prop-types
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+
   //Google Login Process:
   const googelLogin = () => {
+    setLoading(true);
     return signInWithPopup(auth, googleProvider);
   };
 
   //Email-Password sign up
   const createSignUp = (email, password) => {
+    setLoading(true);
     return createUserWithEmailAndPassword(auth, email, password);
   };
 
   //Email-Password Sign-in
   const signInUser = (email, password) => {
+    setLoading(true);
     return signInWithEmailAndPassword(auth, email, password);
+  };
+
+  //email login update profile
+  const handleUpdateProfile = (displayName, photoURL) => {
+    return updateProfile(auth.currentUser, {
+      displayName: displayName,
+      photoURL: photoURL,
+    });
   };
 
   //Sign-Out Process:
@@ -40,6 +54,7 @@ const AuthProvider = ({ children }) => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       setUser(user);
+      setLoading(false);
     });
     return () => {
       unsubscribe();
@@ -52,6 +67,8 @@ const AuthProvider = ({ children }) => {
     createSignUp,
     signInUser,
     user,
+    loading,
+    handleUpdateProfile,
     logOut,
   };
 

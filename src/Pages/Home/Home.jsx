@@ -3,6 +3,7 @@ import HeroSection from "../../Components/HeroSection";
 import IntroductionSection from "../../Components/IntroductionSection/IntroductionSection";
 import { LeaderSpeaker } from "../../Components/LeaderSpeaker/LeaderSpeaker";
 import WhyChooseUs from "../../Components/WhyChooseUs/WhyChooseUs";
+import Services from "../Services/Services";
 
 const Home = () => {
   return (
@@ -14,6 +15,7 @@ const Home = () => {
         <LeaderSpeaker></LeaderSpeaker>
         <ClientsFeedBack></ClientsFeedBack>
       </div>
+      <Services></Services>
     </div>
   );
 };

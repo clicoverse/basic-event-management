@@ -2,11 +2,13 @@ import { createBrowserRouter } from "react-router-dom";
 import MainLayout from "../Layouts/MainLayout";
 import ErrorPage from "../Pages/ErrorPage/ErrorPage";
 import Home from "../Pages/Home/Home";
-import Services from "../Pages/Services/Services";
 import Contact from "../Pages/Contact/Contact";
 import Registration from "../Pages/Registration/Registration";
 import Login from "../Pages/Login/Login";
 import About from "../Pages/About/About";
+import Packages from "../Pages/Packages/Packages";
+import Service from "../Pages/Service/Service";
+import PrivateRouter from "../PrivateRouter/PrivateRouter";
 
 const MainRouter = createBrowserRouter([
   {
@@ -19,8 +21,8 @@ const MainRouter = createBrowserRouter([
         element: <Home></Home>,
       },
       {
-        path: "/services",
-        element: <Services></Services>,
+        path: "/packages",
+        element: <Packages></Packages>,
       },
       {
         path: "/about",
@@ -37,6 +39,15 @@ const MainRouter = createBrowserRouter([
       {
         path: "/login",
         element: <Login></Login>,
+      },
+      {
+        path: "/service/:id",
+        element: (
+          <PrivateRouter>
+            <Service></Service>
+          </PrivateRouter>
+        ),
+        loader: () => fetch("../../services.json"),
       },
     ],
   },

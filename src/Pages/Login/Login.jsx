@@ -1,10 +1,12 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import SocialLogin from "../../Components/SocialLogin/SocialLogin";
 import { useContext } from "react";
 import { AuthContext } from "../../Provider/AuthProvider";
+import toast from "react-hot-toast";
 
 const Login = () => {
   const { signInUser } = useContext(AuthContext);
+  const navigation = useNavigate();
 
   const handleSingIn = (e) => {
     e.preventDefault();
@@ -12,8 +14,17 @@ const Login = () => {
     const password = e.target.email.value;
     // console.log(email);
     signInUser(email, password)
-      .then((response) => response.user)
-      .catch((error) => console.log(error));
+      .then((response) => {
+        response.user;
+        //toast
+        toast.success("You have successfully Logged in");
+        navigation("/");
+      })
+      .catch((error) => {
+        error.message;
+        //toast
+        toast.error("Sorry!! your Log-in Failed");
+      });
   };
 
   return (

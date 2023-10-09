@@ -28,7 +28,7 @@ const NavBar = () => {
         Home
       </NavLink>
       <NavLink
-        to={"/services"}
+        to={"/packages"}
         className={({ isActive, isPending }) =>
           isPending
             ? "pending"
@@ -37,7 +37,7 @@ const NavBar = () => {
             : ""
         }
       >
-        Services
+        Packages
       </NavLink>
       <NavLink
         to={"/about"}

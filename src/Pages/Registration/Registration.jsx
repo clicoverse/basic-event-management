@@ -1,16 +1,18 @@
 import { useContext } from "react";
 import SocialLogin from "../../Components/SocialLogin/SocialLogin";
 import { AuthContext } from "../../Provider/AuthProvider";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 const Registration = () => {
-  const { createSignUp } = useContext(AuthContext);
+  const { createSignUp, handleUpdateProfile } = useContext(AuthContext);
+  const navigation = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // const name = e.target.name.value;
+    const name = e.target.name.value;
     const email = e.target.email.value;
-    // const image = e.target.image.value;
+    const image = e.target.image.value;
     const password = e.target.password.value;
 
     if (password.length < 6) {
@@ -18,8 +20,19 @@ const Registration = () => {
     }
 
     createSignUp(email, password)
-      .then((response) => console.log(response.user))
-      .catch((error) => console.log(error.message));
+      .then((response) => {
+        handleUpdateProfile(name, image).then(() => {
+          //toast
+          toast.success("You have successfully Registered");
+          response.user;
+          navigation("/");
+        });
+      })
+      .catch((error) => {
+        //toast
+        toast.error("Sorry!! your Registration Failed");
+        error.message;
+      });
   };
 
   return (

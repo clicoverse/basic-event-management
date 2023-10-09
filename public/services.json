@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "title": "Fashion Photography Workshop",
+    "image": "https://i.ibb.co/ckwvj48/1.jpg",
+    "description": "Learn advanced fashion photography techniques from industry experts.",
+    "rating": 4.5,
+    "price": 200,
+    "upcoming_date": "2023-11-15",
+    "venue": "Fashion Studio, Mumbai, India"
+  },
+  {
+    "id": 2,
+    "title": "VIP Access to Keynote Speakers",
+    "image": "https://i.ibb.co/6HSKq0J/2.jpg",
+    "description": "Get exclusive access to keynote speeches by renowned fashion and photography figures.",
+    "rating": 4.8,
+    "price": 350,
+    "upcoming_date": "2023-11-17",
+    "venue": "Convention Center, New Delhi, India"
+  },
+  {
+    "id": 3,
+    "title": "Fashion Show Tickets",
+    "image": "https://i.ibb.co/bvLP6ZK/3.jpg",
+    "description": "Experience the latest fashion trends on the runway with these tickets.",
+    "rating": 4.2,
+    "price": 75,
+    "upcoming_date": "2023-11-20",
+    "venue": "Fashion Theater, Kolkata, India"
+  },
+  {
+    "id": 4,
+    "title": "Professional Portfolio Review",
+    "image": "https://i.ibb.co/8bLXRwC/4.jpg",
+    "description": "Receive personalized feedback on your portfolio from industry experts.",
+    "rating": 4.9,
+    "price": 150,
+    "upcoming_date": "2023-11-22",
+    "venue": "Photography Studio, Bangalore, India"
+  },
+  {
+    "id": 5,
+    "title": "Networking Cocktail Party",
+    "image": "https://i.ibb.co/8NrDs8m/5.jpg",
+    "description": "Connect with fellow professionals and industry insiders at this exclusive event.",
+    "rating": 4.7,
+    "price": 100,
+    "upcoming_date": "2023-11-25",
+    "venue": "The Palace Hotel, Jaipur, India"
+  },
+  {
+    "id": 6,
+    "title": "Panel Discussion Pass",
+    "image": "https://i.ibb.co/x2QGDNB/6.jpg",
+    "description": "Attend panel discussions on photography techniques, fashion trends, and more.",
+    "rating": 4.6,
+    "price": 50,
+    "upcoming_date": "2023-11-28",
+    "venue": "Conference Hall, Hyderabad, India"
+  }
+]
